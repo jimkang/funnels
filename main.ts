@@ -8,6 +8,7 @@ import { createProbable as Probable } from 'probable';
 import { range } from 'd3-array';
 import { FunnelDef, Pt } from './types';
 import { renderFunnels } from './renderers/render-funnels';
+import { createAxialPath } from './updaters/create-schmatics';
 
 var randomId = RandomId();
 var prob: any;
@@ -50,39 +51,21 @@ async function followRoute({
 
   var funnelDefs: FunnelDef[] = range(funnelCount).map(() => ({
     id: `funnel-${randomId(4)}`,
-    axialPath: createAxialPath({ pointCount: 10 }),
+    axialPath: createAxialPath({
+      pointCount: 10,
+      boardWidth,
+      boardHeight,
+      prob,
+    }),
+    // ellipses: createEllipses({
+    //   pointCount: 10,
+    //   boardWidth,
+    //   boardHeight,
+    //   prob,
+    // }),
   }));
 
   renderFunnels({ funnelDefs });
-
-  function createAxialPath({
-    pointCount,
-    maxAngleChange = Math.PI / 3,
-  }: {
-    pointCount: number;
-    maxAngleChange: number;
-  }): Pt[] {
-    var path = [];
-    var lastPt: Pt = { x: 0, y: 0 };
-    var pointGapDist = (boardWidth + boardHeight) / 2 / 20;
-    var lastTheta = prob.roll(2 * Math.PI * 100) / 100;
-
-    for (let i = 0; i < pointCount; ++i) {
-      if (i === 0) {
-        lastPt = { x: prob.roll(boardWidth), y: prob.roll(boardHeight) };
-      } else {
-        lastTheta +=
-          (prob.pick([-1, 1]) * prob.roll(maxAngleChange * 100)) / 100;
-        lastPt = {
-          x: lastPt.x + pointGapDist * Math.cos(lastTheta),
-          y: lastPt.y + pointGapDist * Math.sin(lastTheta),
-        };
-        pointGapDist += (prob.rollDie(5) + 10) / 10;
-      }
-      path.push(lastPt);
-    }
-    return path;
-  }
 }
 
 function reportTopLevelError(
