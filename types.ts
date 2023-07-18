@@ -3,14 +3,15 @@ export interface Pt {
   y: number;
 }
 
-export interface Ellipse {
+export interface Ring {
   center: Pt;
   rx: number;
   ry: number;
+  strokeWidth: number;
 }
 
 export interface FunnelDef {
   id: string;
   axialPath: Pt[];
-  ellipses: Ellipse[];
+  rings: Ring[];
 }

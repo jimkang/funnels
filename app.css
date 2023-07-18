@@ -22,7 +22,7 @@ body {
   --time-blue: hsla(211, 70%, 50%, 0.6);
   --time-blue-ghostly: hsla(211, 70%, 50%, 0.3);
   --time-blue-dim: hsla(211, 70%, 50%, 0.1);
-  --time-blue-bright: hsla(211, 70%, 50%, 0.95);
+  --ring: hsla(211, 70%, 50%, 0.95);
   --diagnostic-line: hsla(44, 70%, 50%, 0.959);
 }
 
@@ -83,6 +83,11 @@ a:visited {
 
 .axial-path {
   stroke: var(--diagnostic-line);
+  fill: none;
+}
+
+.ring {
+  stroke: var(--ring);
   fill: none;
 }
 

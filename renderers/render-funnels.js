@@ -16,9 +16,9 @@ export function renderFunnels({ funnelDefs }) {
 
   newFunnelSel.append('path').classed('axial-path', true);
 
-  var currentFunnelSet = newFunnelSel.merge(funnelsSel);
+  var currentFunnelSel = newFunnelSel.merge(funnelsSel);
 
-  currentFunnelSet
+  currentFunnelSel
     .selectAll('.axial-path')
     .datum(
       (def) => {
@@ -28,8 +28,17 @@ export function renderFunnels({ funnelDefs }) {
       (def) => def.id
     )
     .attr('d', createAxialLinePath);
-  // .attr('d', function (d) {
-  //   console.log('getting path for', d);
-  //   return createAxialLinePath(d);
-  // });
+
+  var ringSel = currentFunnelSel.selectAll('.ring').data((def) => def.rings);
+
+  ringSel.exit().remove();
+  var newRingSel = ringSel.enter().append('ellipse').classed('ring', true);
+
+  var currentRingSel = newRingSel.merge(ringSel);
+  currentRingSel
+    .attr('cx', (d) => d.center.x)
+    .attr('cy', (d) => d.center.y)
+    .attr('rx', (d) => d.rx)
+    .attr('ry', (d) => d.ry)
+    .attr('stroke-width', (d) => d.strokeWidth);
 }
