@@ -9,6 +9,25 @@
     <div id="status-message" class="hidden"></div>
 
     <svg class="board" width="1400" height="1400">
+      <filter id="displacementFilter">
+        <feTurbulence
+          type="turbulence"
+          baseFrequency="0.25"
+          numOctaves="2"
+          result="turbulence"
+        />
+        <feDisplacementMap
+          in2="turbulence"
+          in="SourceGraphic"
+          scale="4"
+          xChannelSelector="R"
+          yChannelSelector="B"
+          result="noise"
+        />
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feComposite in2="blur" in="noise" operater="lighter" />
+      </filter>
+
       <g class="funnels-root"></g>
     </svg>
 

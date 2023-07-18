@@ -15,7 +15,10 @@ export function renderFunnels({ funnelDefs, showAxes }) {
   var newFunnelSel = funnelsSel.enter().append('g').classed('funnel', true);
 
   if (showAxes) {
-    newFunnelSel.append('path').classed('axial-path', true);
+    newFunnelSel
+      .append('path')
+      .classed('axial-path', true)
+      .style('filter', 'url(#displacementFilter)');
   }
 
   var currentFunnelSel = newFunnelSel.merge(funnelsSel);

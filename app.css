@@ -82,12 +82,14 @@ a:visited {
 }
 
 .axial-path {
-  stroke: var(--diagnostic-line);
+  stroke: hsl(211, 40%, 70%);
+  stroke-width: 2;
   fill: none;
 }
 
 .ring {
   fill: none;
+  /* stroke: var(--time-blue); */
 }
 
 .board {

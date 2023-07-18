@@ -87,13 +87,14 @@ async function followRoute({
         },
         colorScaleFn(t) {
           const hueFloor = (200 + i * 10) % 360;
-          const hueCeiling = (320 + i * 10) % 360;
-          const minSat = 70;
-          const maxSat = 80;
-          const minLightness = 40;
-          const maxLightness = 60;
+          const hueCeiling = (340 + i * 10) % 360;
+          // const minSat = 70;
+          // const maxSat = 80;
+          const minLightness = 45;
+          const maxLightness = 55;
           return `hsl(${hueFloor + t * (hueCeiling - hueFloor)}, ${
-            minSat + (maxSat - minSat) * t
+            // minSat + (maxSat - minSat) * t
+            60
           }%, ${
             minLightness +
             (maxLightness - minLightness) * (Math.sin(2 * Math.PI * t * 3) + t)
