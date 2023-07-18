@@ -20,7 +20,7 @@ var routeState: any;
   routeState = RouteState({
     followRoute,
     windowObject: window,
-    // propsToCoerceToBool: ['enableFeedback'],
+    propsToCoerceToBool: ['showAxes'],
   });
   routeState.routeFromHash();
 })();
@@ -31,12 +31,14 @@ async function followRoute({
   funnelSegmentCount = 50,
   boardWidth = 1400,
   boardHeight = 1400,
+  showAxes = false,
 }: {
   seed: string;
   funnelSegmentCount: number;
   funnelCount: number;
   boardWidth: number;
   boardHeight: number;
+  showAxes: boolean;
 }) {
   if (!seed) {
     routeState.addToRoute({ seed: randomId(8) });
@@ -102,7 +104,7 @@ async function followRoute({
     });
   }
 
-  renderFunnels({ funnelDefs });
+  renderFunnels({ funnelDefs, showAxes });
 }
 
 function reportTopLevelError(

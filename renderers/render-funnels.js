@@ -5,7 +5,7 @@ var createAxialLinePath = line()
   .x((d) => d.x)
   .y((d) => d.y);
 
-export function renderFunnels({ funnelDefs }) {
+export function renderFunnels({ funnelDefs, showAxes }) {
   var funnelsSel = select('.funnels-root')
     .selectAll('.funnel')
     .data(funnelDefs, (def) => def.id);
@@ -14,20 +14,24 @@ export function renderFunnels({ funnelDefs }) {
 
   var newFunnelSel = funnelsSel.enter().append('g').classed('funnel', true);
 
-  newFunnelSel.append('path').classed('axial-path', true);
+  if (showAxes) {
+    newFunnelSel.append('path').classed('axial-path', true);
+  }
 
   var currentFunnelSel = newFunnelSel.merge(funnelsSel);
 
-  currentFunnelSel
-    .selectAll('.axial-path')
-    .datum(
-      (def) => {
-        // console.log('Setting data to', def.axialPath);
-        return def.axialPath;
-      },
-      (def) => def.id
-    )
-    .attr('d', createAxialLinePath);
+  if (showAxes) {
+    currentFunnelSel
+      .selectAll('.axial-path')
+      .datum(
+        (def) => {
+          // console.log('Setting data to', def.axialPath);
+          return def.axialPath;
+        },
+        (def) => def.id
+      )
+      .attr('d', createAxialLinePath);
+  }
 
   var ringSel = currentFunnelSel.selectAll('.ring').data((def) => def.rings);
 
