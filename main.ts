@@ -8,6 +8,7 @@ import { createProbable as Probable } from 'probable';
 import { FunnelDef } from './types';
 import { renderFunnels } from './renderers/render-funnels';
 import { createAxialPath, createRings } from './updaters/create-schmatics';
+import { selectAll } from 'd3-selection';
 
 var randomId = RandomId();
 var prob: any;
@@ -20,7 +21,7 @@ var routeState: any;
   routeState = RouteState({
     followRoute,
     windowObject: window,
-    propsToCoerceToBool: ['showAxes'],
+    propsToCoerceToBool: ['showAxes', 'showText'],
   });
   routeState.routeFromHash();
 })();
@@ -32,6 +33,7 @@ async function followRoute({
   boardWidth = 1400,
   boardHeight = 1400,
   showAxes = false,
+  showText = false,
 }: {
   seed: string;
   funnelSegmentCount: number;
@@ -39,6 +41,7 @@ async function followRoute({
   boardWidth: number;
   boardHeight: number;
   showAxes: boolean;
+  showText: boolean;
 }) {
   if (!seed) {
     routeState.addToRoute({ seed: randomId(8) });
@@ -86,12 +89,21 @@ async function followRoute({
           return minWidth + (maxWidth - minWidth) * t * t * t * t;
         },
         colorScaleFn(t) {
-          const hueFloor = (200 + i * 10) % 360;
-          const hueCeiling = (340 + i * 10) % 360;
+          const hueFloor = (100 + i * 4) % 360;
+          const hueCeiling = (290 + i * 4) % 360;
+
+          // Yellow center to blue outer cone
+          // const hueFloor = (200 + i * 4) % 360;
+          // const hueCeiling = (40 + i * 4) % 360;
+
+          // Purple
+          // const hueFloor = (200 + i * 4) % 360;
+          // const hueCeiling = (340 + i * 4) % 360;
+
           // const minSat = 70;
           // const maxSat = 80;
-          const minLightness = 45;
-          const maxLightness = 55;
+          const minLightness = 35;
+          const maxLightness = 45;
           return `hsl(${hueFloor + t * (hueCeiling - hueFloor)}, ${
             // minSat + (maxSat - minSat) * t
             60
@@ -106,6 +118,7 @@ async function followRoute({
   }
 
   renderFunnels({ funnelDefs, showAxes });
+  selectAll('.text').classed('hidden', !showAxes);
 }
 
 function reportTopLevelError(

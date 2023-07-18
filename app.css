@@ -93,7 +93,21 @@ a:visited {
 }
 
 .board {
-  border: 1px solid #fff;
+  /* border: 1px solid #fff; */
+}
+
+.text {
+  font-family: Roboto, Sans, sans-serif;
+  fill: #fff;
+}
+
+.artist-text {
+  font-size: 80px;
+}
+
+.title-text {
+  font-family: Albert Sans, sans-serif;
+  font-size: 120px;
 }
 
 @media all and (max-height: 568px) {
