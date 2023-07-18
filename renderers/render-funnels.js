@@ -40,5 +40,6 @@ export function renderFunnels({ funnelDefs }) {
     .attr('cy', (d) => d.center.y)
     .attr('rx', (d) => d.rx)
     .attr('ry', (d) => d.ry)
-    .attr('stroke-width', (d) => d.strokeWidth);
+    .attr('stroke-width', (d) => d.strokeWidth)
+    .attr('stroke', (d) => d.color);
 }

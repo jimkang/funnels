@@ -5,16 +5,16 @@ body {
   margin-bottom: 2rem;
   background: linear-gradient(
       to right,
-      hsla(194, 50%, 50%, 0.1) 0%,
-      hsla(136, 85%, 50%, 0.1) 30%,
-      hsla(136, 85%, 50%, 0.1) 70%,
-      hsla(194, 50%, 50%, 0.1) 100%
+      hsla(194, 50%, 40%, 0.1) 0%,
+      hsla(0, 84%, 24%, 0.1) 30%,
+      hsla(0, 85%, 24%, 0.1) 70%,
+      hsla(194, 50%, 40%, 0.1) 100%
     ),
     linear-gradient(
       to bottom,
       hsla(0, 0%, 0%, 0.99) 0%,
       hsla(0, 0%, 0%, 0.995) 85%,
-      hsla(71, 51%, 15%, 0.99) 100%
+      hsla(272, 43%, 0%, 0.89) 100%
     );
   color: #fff;
   margin: 0;
@@ -87,8 +87,11 @@ a:visited {
 }
 
 .ring {
-  stroke: var(--ring);
   fill: none;
+}
+
+.board {
+  border: 1px solid #fff;
 }
 
 @media all and (max-height: 568px) {

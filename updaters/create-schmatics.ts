@@ -52,12 +52,14 @@ export function createRings({
   radiusVarianceProportion = 0.1,
   radiusScaleFn = (t) => t * 10,
   strokeWidthScaleFn = (t) => t * 10,
+  colorScaleFn = (t) => `hsl(${360 * t}, 50%, 50%)`,
   prob,
 }: {
   centers: Pt[];
   radiusVarianceProportion?: number;
   radiusScaleFn?: (arg: number) => number;
   strokeWidthScaleFn?: (arg: number) => number;
+  colorScaleFn?: (arg: number) => string;
   prob: any;
 }): Ring[] {
   var ellipses: Ring[] = [];
@@ -74,6 +76,7 @@ export function createRings({
       rx: baseRadius + prob.roll(radiusVarianceMax),
       ry: baseRadius + prob.roll(radiusVarianceMax),
       strokeWidth: strokeWidthScaleFn(t),
+      color: colorScaleFn(t),
     });
   }
 

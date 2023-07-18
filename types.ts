@@ -8,6 +8,7 @@ export interface Ring {
   rx: number;
   ry: number;
   strokeWidth: number;
+  color: string;
 }
 
 export interface FunnelDef {

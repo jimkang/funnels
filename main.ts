@@ -73,15 +73,29 @@ async function followRoute({
           const phases = 4;
           const minRadius = 10;
           const multiplier = 5;
+          // Make the first one really big, and the rest smaller than that.
+          const multiplierExp = i === 0 ? 4 : 3;
           const a = Math.sin(2 * Math.PI * t * phases) / 8 + 2 * t;
-          return minRadius + Math.pow(multiplier, 3) * a;
-          // It should sometimes do this:
-          // return minRadius + Math.pow(multiplier, 4) * a;
+          return minRadius + Math.pow(multiplier, multiplierExp) * a;
         },
         strokeWidthScaleFn(t) {
-          const minWidth = 0.2;
+          const minWidth = 0.5;
           const maxWidth = 8;
           return minWidth + (maxWidth - minWidth) * t * t * t * t;
+        },
+        colorScaleFn(t) {
+          const hueFloor = (200 + i * 10) % 360;
+          const hueCeiling = (320 + i * 10) % 360;
+          const minSat = 70;
+          const maxSat = 80;
+          const minLightness = 40;
+          const maxLightness = 60;
+          return `hsl(${hueFloor + t * (hueCeiling - hueFloor)}, ${
+            minSat + (maxSat - minSat) * t
+          }%, ${
+            minLightness +
+            (maxLightness - minLightness) * (Math.sin(2 * Math.PI * t * 3) + t)
+          }%)`;
         },
         prob,
       }),
