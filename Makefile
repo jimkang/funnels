@@ -13,10 +13,10 @@ run:
 	$(vite)
 
 build:
-	npm build
+	npm run build
 
 sync:
-	rsync -a $(HOMEDIR)/ $(USER)@$(SERVER):/$(APPDIR) \
+	rsync -a $(HOMEDIR)/dist/ $(USER)@$(SERVER):/$(APPDIR) \
     --exclude node_modules/
 
 set-up-server-dir:
