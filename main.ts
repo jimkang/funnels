@@ -8,7 +8,7 @@ import { createProbable as Probable } from 'probable';
 import { FunnelDef } from './types';
 import { renderFunnels } from './renderers/render-funnels';
 import { createAxialPath, createRings } from './updaters/create-schmatics';
-import { selectAll } from 'd3-selection';
+import { select, selectAll } from 'd3-selection';
 
 var randomId = RandomId();
 var prob: any;
@@ -30,25 +30,45 @@ async function followRoute({
   seed,
   funnelCount,
   funnelSegmentCount = 50,
-  boardWidth = 1400,
-  boardHeight = 1400,
-  showAxes = false,
-}: // showText = false,
-{
+  boardWidth,
+  boardHeight,
+  showAxes = true,
+  showText = false,
+}: {
   seed: string;
   funnelSegmentCount: number;
   funnelCount: number;
   boardWidth: number;
   boardHeight: number;
   showAxes: boolean;
-  // showText: boolean;
+  showText: boolean;
 }) {
+  // TODO: Set these defaults in one go.
+  var needToFollowRoute = false;
   if (!seed) {
-    routeState.addToRoute({ seed: randomId(8) });
-    return;
+    routeState.addToRoute({ seed: randomId(8) }, false);
+    needToFollowRoute = true;
   }
   if (!funnelCount) {
-    routeState.addToRoute({ funnelCount: 1 });
+    routeState.addToRoute({ funnelCount: 2 }, false);
+    needToFollowRoute = true;
+  }
+  if (!boardWidth) {
+    routeState.addToRoute({ boardWidth: 1400 }, false);
+    needToFollowRoute = true;
+  }
+  if (!boardHeight) {
+    routeState.addToRoute({ boardHeight: 1400 }, false);
+    needToFollowRoute = true;
+  }
+  if (!showText) {
+    routeState.addToRoute({ showText: true }, false);
+    needToFollowRoute = true;
+  }
+
+  if (needToFollowRoute) {
+    routeState.routeFromHash();
+    return;
   }
 
   var random = seedrandom(seed);
@@ -118,7 +138,8 @@ async function followRoute({
   }
 
   renderFunnels({ funnelDefs, showAxes });
-  selectAll('.text').classed('hidden', !showAxes);
+  select('.board').attr('width', boardWidth).attr('height', boardHeight);
+  selectAll('.text').classed('hidden', !showText);
 }
 
 function reportTopLevelError(
