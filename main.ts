@@ -109,16 +109,16 @@ async function followRoute({
           return minWidth + (maxWidth - minWidth) * t * t * t * t;
         },
         colorScaleFn(t) {
-          const hueFloor = (100 + i * 4) % 360;
-          const hueCeiling = (290 + i * 4) % 360;
+          // const hueFloor = (100 + i * 4) % 360;
+          // const hueCeiling = (290 + i * 4) % 360;
 
           // Yellow center to blue outer cone
           // const hueFloor = (200 + i * 4) % 360;
           // const hueCeiling = (40 + i * 4) % 360;
 
           // Purple
-          // const hueFloor = (200 + i * 4) % 360;
-          // const hueCeiling = (340 + i * 4) % 360;
+          const hueFloor = (200 + i * 4) % 360;
+          const hueCeiling = (340 + i * 4) % 360;
 
           // const minSat = 70;
           // const maxSat = 80;
